@@ -17,6 +17,7 @@ class ProductManagerTest {
     private Book first = new Book(1, "lord of the rings", 1000, "Tolkien");
     private Book second = new Book(2, "Sapiens", 700, "Harari");
     private Book third = new Book(3, "Zuleikha", 500, "Yakhina");
+    private Book seventh = new Book(7, "My children", 600, "Yakhina");
 
     private Smartphone fourth = new Smartphone(4, "Apple 12", 100_000, "Apple");
     private Smartphone fifth = new Smartphone(5, "Apple 11 pro", 80_000, "Apple");
@@ -30,6 +31,7 @@ class ProductManagerTest {
         productManager.add(fourth);
         productManager.add(fifth);
         productManager.add(sixth);
+        productManager.add(seventh);
     }
 
     @Test
@@ -80,5 +82,14 @@ class ProductManagerTest {
     @Test
     void shouldSearch() {
         assertEquals(0, productManager.searchBy("nothing").length);
+    }
+
+    @Test
+    void shouldSearchAllBooksBySameAuthor() {
+        String text = "Yakhina";
+
+        Product[] expected = new Product[]{third, seventh};
+        Product[] actual = productManager.searchBy(text);
+        assertArrayEquals(expected, actual);
     }
 }
